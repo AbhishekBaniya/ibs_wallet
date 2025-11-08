@@ -20,7 +20,6 @@ class SelectServiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ctrl = Get.put(TopUpController());
     final orientation = MediaQuery.of(context).orientation;
-    final Map<String, dynamic> data = Get.arguments;
     return AppParentWidget(
       resizeToAvoidBottomInset: true,
       screenBgColor: Colors.white,
@@ -108,7 +107,7 @@ class SelectServiceScreen extends StatelessWidget {
                                     children: [
 
                                       AppRichTextWidget().buildRichText(
-                                        text1: data['name'],
+                                        text1: (Get.arguments as Map?)?['name'] ?? 'N/A',
                                         style1: TextStyle(fontSize: 18,
                                             color: Colors.black,
                                             fontWeight: FontWeight.w600),),
