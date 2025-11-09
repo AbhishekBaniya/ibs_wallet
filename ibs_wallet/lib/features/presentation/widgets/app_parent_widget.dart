@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 import '../../../config/res/assets.dart';
 import 'app_text_widget.dart';
+
 
 class AppParentWidget extends StatelessWidget {
   final PreferredSizeWidget? appBar;
@@ -47,8 +49,8 @@ class AppParentWidget extends StatelessWidget {
                     /// LEFT SIDE: Logo + Text (Infinite Business Solutions)
                     Image.asset(
                       Assets.logo,
-                      height: Get.height/2,
-                      width: Get.width/2.4,
+                      height: MediaQuery.of(context).size.height/2,
+                      width: MediaQuery.of(context).size.width/2.5,
                     ),
     
                     /// RIGHT SIDE: Two Circular Icons
@@ -68,8 +70,8 @@ class AppParentWidget extends StatelessWidget {
           ),
         ),
         body: body,
-        bottomNavigationBar: bottomNavigationBar ?? SizedBox(
-          height: 40,
+       /* bottomNavigationBar: bottomNavigationBar ?? SizedBox(
+          height: 80,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -86,7 +88,45 @@ class AppParentWidget extends StatelessWidget {
 
             ],
           ),
-        ),
+        ),*/
+        bottomNavigationBar: bottomNavigationBar ??
+            Builder(
+              builder: (context) {
+                final width = MediaQuery.sizeOf(context).width;
+                final height = MediaQuery.sizeOf(context).height;
+
+                /// Dynamically adjust font + height based on screen size
+                double barHeight = width < 600 ? 60 : 70;       // mobile / tablet-desktop
+                double fontMain = width < 600 ? 12 : 16;
+                double fontSub  = width < 600 ? 10 : 14;
+
+                return SizedBox(
+                  height: barHeight,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      AppRichTextWidget().buildRichText(
+                        text1: '© 2025 All rights reserved.',
+                        style1: TextStyle(
+                          fontSize: fontMain,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      AppRichTextWidget().buildRichText(
+                        text1: 'Version 1.0.0 | Privacy Policy | Terms of Service',
+                        style1: TextStyle(
+                          fontSize: fontSub,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+
       ),
   );
 
@@ -117,26 +157,12 @@ class AppParentWidget extends StatelessWidget {
         ),
       ),
     );
-    return Container(
-      height: 48,
-      width: 48,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: const Color(0xFF209FA7), // button teal color
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.3),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
-          ),
-        ],
-        image: DecorationImage(image: AssetImage(iconPath,),fit: BoxFit.fitWidth, ),
-      ),
-      /*child: Image.asset(iconPath, width: 20, height: 20,)*//*Icon(
-        icon,
-        size: 26,
-        color: Colors.white,
-      ),*/
-    );
   }
 }
+
+
+
+
+
+
+

@@ -10,13 +10,12 @@ import '../controller/topup_controller.dart';
 import '../widgets/app_button_widget.dart';
 import '../widgets/app_text_widget.dart';
 
-class TransactionSuccessScreen extends StatelessWidget {
+/*class TransactionSuccessScreen extends StatelessWidget {
   const TransactionSuccessScreen({super.key});
 
 
   @override
   Widget build(BuildContext context) {
-    final  ctrl = Get.put(TopUpController());
     return AppParentWidget(
       resizeToAvoidBottomInset: true,
       screenBgColor: Colors.white,
@@ -56,6 +55,94 @@ class TransactionSuccessScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}*/
+class TransactionSuccessScreen extends StatelessWidget {
+  const TransactionSuccessScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppParentWidget(
+      resizeToAvoidBottomInset: true,
+      screenBgColor: Colors.white,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final screenWidth = constraints.maxWidth;
+
+          // ✅ responsive breakpoints
+          double containerWidth = screenWidth * 0.85;
+          double imgSize = screenWidth < 380
+              ? 50
+              : (screenWidth > 700 ? 90 : 70);
+
+          double fontSize = screenWidth < 380
+              ? 14
+              : (screenWidth > 700 ? 22 : 18);
+
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+              child: SingleChildScrollView(      // ✅ prevents overflow
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: containerWidth,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withValues(alpha: 0.25),
+                          blurRadius: 15,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,     // ✅ prevents forced height
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          Assets.success,
+                          height: imgSize,
+                          width: imgSize,
+                        ),
+                        const SizedBox(height: 18),
+
+                        Text(
+                          "Your transaction has been processed successfully.\nPlease take your receipt.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFF969696),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        InkWell(
+                          onTap: () => AppNavigator().navigateToAndReplace(AppRoutes.home),
+                          child: Text(
+                            "Go to Home",
+                            style: TextStyle(
+                              fontSize: fontSize - 2,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.teal,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -7,6 +7,7 @@ import 'config/res/strings.dart';
 import 'config/res/theme.dart';
 import 'core/utils/bool_manager.dart';
 import 'core/utils/constants.dart';
+import 'core/utils/services/responsive_service.dart';
 import 'features/data/data_source/local_data_source/hive_manager.dart';
 import 'features/presentation/app_routes/app_navigation_tracer.dart';
 import 'features/presentation/app_routes/app_pages.dart';
@@ -16,12 +17,15 @@ import 'features/presentation/pages/users_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Get.putAsync(() => ResponsiveService().init());
   AppBindings().dependencies();
   BoolManager().setBool(Consts.debugBanner, false);
   //
   // Initialize Hive and the box
   await HiveManager().initHive();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(MyApp()));
+  //runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -49,7 +53,7 @@ class MyApp extends StatelessWidget {
       // Set the observer here
       title: Strings.appName,
       initialRoute: AppRoutes.home,
-      home: UsersScreen(),
+      //home: UsersScreen(),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:ibs_wallet/features/presentation/controller/topup_controller.dar
 
 import '../../../config/res/colors.dart';
 import '../../../core/network/dio_client.dart';
+import '../../../core/utils/services/responsive_service.dart';
 import '../../data/data_source/remote_data_source/portfolio_remote_data_source.dart';
 import '../../data/repositories/portfolio_repository_impl.dart';
 import '../../domain/usecases/get_portfolio.dart';
@@ -15,27 +16,8 @@ import '../controller/profile/profile_controller.dart';
 
 class AppBindings extends Bindings {
   @override
-  void dependencies() {
+  void dependencies() async {
     // TODO: implement dependencies
-
-    /*// Inject DioClient first
-    Get.put<DioClient>(DioClient());
-
-    // Inject PortfolioRemoteDataSourceImpl which depends on DioClient
-    Get.put<PortfolioRemoteDataSourceImpl>(
-      PortfolioRemoteDataSourceImpl(Get.find<DioClient>()),
-    );
-
-    // Inject PortfolioRepositoryImpl which depends on PortfolioRemoteDataSourceImpl
-    Get.put<PortfolioRepositoryImpl>(
-      PortfolioRepositoryImpl(Get.find<PortfolioRemoteDataSourceImpl>()),
-    );
-
-    // Inject GetPortfolio which depends on PortfolioRepositoryImpl
-    Get.put<GetPortfolio>(
-      GetPortfolio(Get.find<PortfolioRepositoryImpl>()),
-    );*/
-
     Get.put(ColorManager());
 // Register DioClient first
     Get.lazyPut<DioClient>(() => DioClient());
